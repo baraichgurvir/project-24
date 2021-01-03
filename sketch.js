@@ -20,12 +20,14 @@ function setup() {
 	ground = Bodies.rectangle(width/2, 675, width, 20, {isStatic:true});
 	World.add(world, ground)
 
-	d = Bodies.rectangle(650, 625, 20, 50, {isStatic: true});
+	d = Bodies.rectangle(650, 625, 20, 80, {isStatic: true});
 	World.add(world, d);
+	d2 = Bodies.rectangle(500, 625, 20, 80, {isStatic: true});
+	World.add(world, d2);
 
 	paper_obj = new Paper(50, 650, 50);
 
-  console.log();
+    console.log();
 
 	Engine.run(engine);
   
@@ -38,17 +40,13 @@ function draw() {
   background(0);
   fill("white");
   rect(ground.position.x, ground.position.y, width, 20);
-  rect(d.position.x, d.position.y, 20, 50);
+  rect(d.position.x, d.position.y, 20, 80);
+  rect(d2.position.x, d2.position.y, 20, 80);
   paper_obj.display();
   drawSprites();
 
   if (keyWentDown("space")) {
-  	for (var i = 0; i < 200; i++) {
-  		if (paper_obj.body.position.x >= d.position.x) {
-  			i = 250;ß
-  		}
-		paper_obj = new Paper(50 + i, 650, 50);
-	}
+  	Matter.Body.applyForce(paper_obj.body, paper_obj.body.position, {x:35, y:-35})
   }
 }
 
